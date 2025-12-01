@@ -15,6 +15,12 @@ class Vec3(tuple):
     def z(self):
         return self[2]
 
+    def __add__(self, t):
+        return Vec3(self.x + t.x, self.y + t.y, self.z + t.z)
+
+    def __sub__(self,t):
+        return Vec3(self.x - t.x, self.y  - t.y, self.z - t.z)
+
     def __mul__(self, t):
         if isinstance(t, Vec3):
             return Vec3(self.x * t.x, self.y * t.y, self.z * t.z)
@@ -25,9 +31,14 @@ class Vec3(tuple):
     def __truediv__(self, t):
         return self * (1.0 / t)
 
+    def dot(self,t):
+        return self.x*t.x+self.y*t.y+self.z*t.z
+
     def length(self):
         return math.sqrt(self.dot(self))
 
+    def unit(self):
+        return Vec3(self.x/self.length(),self.y/self.length(),self.z/self.length())
 
     def to_color_tuple(self):
         # clamp and convert floats in [0,1] to 0..255 ints
